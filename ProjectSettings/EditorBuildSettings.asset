@@ -6,6 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  m_configObjects: {}
+    path: Assets/BoH Ally Trench.unity
+    guid: c2d7156b1ce64c94da61ba0764e8e949
+  - enabled: 1
+    path: Assets/BoH No Man's Land.unity
+    guid: 213ea5acb9ac76848804dd442914c2f6
+  - enabled: 1
+    path: Assets/BoH Axis Trench.unity
+    guid: 8858732b26a58f34bbac6da284090d18
+  - enabled: 1
+    path: Assets/BoH The Return.unity
+    guid: e7a7c40e95569c042a9f09f621b02b06

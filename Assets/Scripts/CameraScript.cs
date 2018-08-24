@@ -1,32 +1,59 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CameraScript : MonoBehaviour {
+public class CameraScript : MonoBehaviour
+{
 
-	var cam : GameObject;
+    [SerializeField] PlayerControl playerControl;
+    GameObject cam;
+    Vector3 movement;
+    public MySceneManagement mySceneManagement;
 
-	void Start() {
-
+    float camOrigXPos;
+    [SerializeField] float camLeftBound = 10f;
+    [SerializeField] float camRightBound = 10f;
+    float camOffset = 0f;
+    float speed = 0f;
+    
+	void Start()
+    {
 		cam = GameObject.Find("Main Camera");
+        speed = playerControl.walkSpeed;
+        camOrigXPos = transform.position.x;
+        camOffset = transform.position.x - playerControl.transform.position.x;
+        Debug.Log("Offset = " + camOffset);
+    }
 
-	}
+	void Update()
+    {
+        if (!mySceneManagement.inDialogue)
+        {
 
-	void Update() {
-		var movement = Vector3.zero;
+            movement = Vector3.zero;
+            speed = playerControl.walkSpeed;
+            camOffset = transform.position.x - playerControl.transform.position.x;
 
-		if ((Input.GetKey("a")) && (cam.transform.x > -10) && (cam.transform.x < 10))
-		{
-			movement.x--;
-		}
+            if (Input.GetKey("left"))
+            {
+                if (cam.transform.position.x > camLeftBound)
+                {
+                    if (camOffset > 0)
+                    {
+                        transform.Translate(Vector3.right * -speed * Time.deltaTime);
+                    }
+                }
+            }
 
-		if ((Input.GetKey("d")) && (cam.transform.x > -10) && (cam.transform.x < 10))
-		{
-			movement.x++;
-		}
-
-		transform.Translate(movement * speed * Time.deltaTime, Space.Self);
-
+            else if (Input.GetKey("right"))
+            {
+                if (cam.transform.position.x < camRightBound)
+                {
+                    if (camOffset < 0)
+                    {
+                        transform.Translate(Vector3.right * speed * Time.deltaTime);
+                    }
+                }
+            }
+        }
 	}
 }
 

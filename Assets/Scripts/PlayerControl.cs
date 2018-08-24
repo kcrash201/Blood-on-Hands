@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour {
 
 		public float walkSpeed = 1; // player left right walk speed'
+        public MySceneManagement mySceneManagement;
 
 		Animator animator;
 
@@ -28,26 +29,35 @@ public class PlayerControl : MonoBehaviour {
 		// FixedUpdate is used insead of Update to better handle the physics based jump
 		void FixedUpdate()
 	{
-		//Check for keyboard input
-		if (Input.GetKey ("right")) {
-			changeDirection ("right");
-			transform.Translate (Vector3.right * walkSpeed * Time.deltaTime);
-			changeState (Running);
+        if (!mySceneManagement.inDialogue)
+        {
 
-		} else if (Input.GetKey ("left")) {
-			changeDirection ("left");
-			transform.Translate (Vector3.right * walkSpeed * Time.deltaTime);
-			changeState (Running);
+            //Check for keyboard input
+            if (Input.GetKey("right"))
+            {
+                changeDirection("right");
+                transform.Translate(Vector3.right * walkSpeed * Time.deltaTime);
+                changeState(Running);
 
-		} else {
-			changeState (Idle);
-		}
-			
-		//check if strafe animation is playing
-		if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Player Run"))
-			isRunning = true;
-		else
-			isRunning = false;
+            }
+            else if (Input.GetKey("left"))
+            {
+                changeDirection("left");
+                transform.Translate(Vector3.right * walkSpeed * Time.deltaTime);
+                changeState(Running);
+
+            }
+            else
+            {
+                changeState(Idle);
+            }
+
+            //check if strafe animation is playing
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Player Run"))
+                isRunning = true;
+            else
+                isRunning = false;
+        }
 	}
 
 	void Update()
